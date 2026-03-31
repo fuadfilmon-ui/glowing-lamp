@@ -1,0 +1,985 @@
+አዎ፣ አሁን ጠየቁትን በደንብ ገባኝ። የኳስ ውርርድ (Crash Game) ጨዋታ እንዴት ማባዣ (multiplier) እንደሚሰጥ እና እንደ Betika፣ 1xBet ባሉ የስፖርት ውርርድ ድረ-ገጾች ላይ በአንድ ግጥሚያ ላይ ከ900 በላይ የውርርድ አማራጮች (odds) እንዴት እንደሚዘጋጁ ማብራራት እፈልጋለሁ።
+
+ሁለቱ የተለያዩ ነገሮች ናቸው፦
+
+---
+
+1️⃣ የኳስ ውርርድ (Crash Game) – እንደ Aviator, Ball Bet
+
+ይህ ጨዋታ አንድ ነጠላ የማባዣ (multiplier) አለው። ኳሱ ወይም አውሮፕላኑ ከፍ እያለ ማባዣው ይጨምራል። በማንኛውም ጊዜ "CASH OUT" በማለት ያሸነፉትን መውሰድ ይቻላል። ኳሱ በማንኛውም ጊዜ ሊወድቅ ይችላል።
+
+Odds አሰጣጥ፡
+
+· ኳሱ በ1.00x ይጀምራል
+· በየተወሰነ ጊዜ (frame) ማባዣው ይጨምራል (1.01, 1.02, 1.03 ...)
+· የውድቀት ነጥቡ (crash point) በዘፈቀደ ከ1.00x እስከ 1000x ይመነጫል (የስታቲስቲክስ ስርጭት አለው)
+· የማባዣ ክልል 1.00x – 1000x (አንዳንድ ጨዋታዎች 10,000x ድረስ)
+
+ቀመር፡ የእርስዎ ድል = ውርርድ × ካሽ አውት ያደረጉበት ማባዣ
+
+ይህ ኮድ ቀደም ሲል ልኬልዎታለሁ።
+
+---
+
+2️⃣ የስፖርት ውርርድ (Sports Betting) – እንደ Betika, 1xBet
+
+እዚህ ላይ እያንዳንዱ ግጥሚያ በርካታ የውርርድ ገበያዎች (markets) አሉት። እያንዳንዱ ገበያ የራሱ የሆነ Odds አለው።
+
+ምሳሌ የገበያዎች ዝርዝር (ለአንድ ግጥሚያ)
+
+ገበያ አማራጮች ብዛት
+1X2 (አሸናፊ/አቻ/ተሸናፊ) 3
+Double Chance (1X, X2, 12) 3
+Over/Under (0.5፣ 1.5፣ 2.5፣ 3.5፣ 4.5፣ 5.5...) 10+
+Both Teams to Score 2
+Correct Score (0-0፣ 1-0፣ 0-1፣ 1-1፣ 2-0...) 20+
+Handicap (Asian Handicap) 10+
+Half Time/Full Time 9
+First Goalscorer 22+
+Anytime Goalscorer 22+
+Total Goals (0፣1፣2፣3፣4፣5፣6+) 7+
+Goal Range (0-1፣ 2-3፣ 4-6...) 5+
+Odd/Even Goals 2
+እና ሌሎች... ...
+
+ከላይ ያሉትን በግምት ስንደምር፡-
+3 + 3 + 10 + 2 + 20 + 10 + 9 + 22 + 22 + 7 + 5 + 2 ≈ 115+ አማራጮች በአንድ ግጥሚያ
+
+ከ900 በላይ ለማግኘት ደግሞ በርካታ ግጥሚያዎች እና የተዋሃዱ ውርርዶች (accumulators) ሲኖሩ ይቻላል።
+
+---
+
+🧮 Odds እንዴት ይሰላል?
+
+Odds በዋነኝነት የሚሰላው በ Probability (የሆነ ነገር የመከሰት እድል) ላይ ነው።
+
+ቀመር፡
+
+```
+Odds = 1 / Probability
+```
+
+ለምሳሌ አንድ ቡድን 50% የማሸነፍ እድል ካለው፦
+
+```
+Odds = 1 / 0.50 = 2.00
+```
+
+እውነተኛ የውርርድ ኩባንያዎች ግን ህዳግ (margin) ይጨምራሉ። ለምሳሌ 5% ህዳግ ካለ፡-
+
+```
+የተስተካከለ Odds = (1 / Probability) × (1 - margin)
+```
+
+ለምሳሌ 50% እድል ላለው ቡድን በ5% ህዳግ፡-
+
+```
+Odds = (1 / 0.50) × 0.95 = 1.90
+```
+
+---
+
+🎯 ከ900+ አማራጮች ጋር ሙሉ ሲስተም ለመስራት
+
+ከታች ያለው ኮድ የስፖርት ውርርድ ፕላትፎርም ምሳሌ ነው። በእውነተኛ ሲስተም ውስጥ እንደ 1xBet ከሺዎች የሚቆጠሩ አማራጮችን ለመያዝ፡-
+
+· ትልቅ የውሂብ ጎታ (Firebase፣ SQL)
+· የተለያዩ ገበያዎችን የሚያስተዳድሩ ፋንክሽኖች
+· የእውነተኛ ጊዜ ውጤት ማመሳሰል
+
+ይህ ምሳሌ ከ50 በላይ አማራጮች ያለው ሲሆን የማስፋፊያ መሰረት ሆኖ ሊያገለግል ይችላል።
+
+```html
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WINZA SPORTS - ሙያዊ የስፖርት ውርርድ ሲስተም</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #0a0f1a 0%, #050a12 100%);
+            color: white;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+        /* Auth Styles */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .auth-card {
+            background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
+            border-radius: 48px;
+            padding: 40px 30px;
+            max-width: 420px;
+            width: 100%;
+            border: 1px solid #ffd70044;
+        }
+        .brand {
+            font-size: 56px;
+            font-weight: 900;
+            text-align: center;
+            color: #ffd700;
+            margin-bottom: 30px;
+        }
+        .tab-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .tab-btn.active {
+            background: #ffd700;
+            color: #000;
+        }
+        .tab-btn:not(.active) {
+            background: #2a2a3a;
+            color: #aaa;
+        }
+        .input-field {
+            width: 100%;
+            background: #0f0f1a;
+            border: 1px solid #2a2a3a;
+            border-radius: 40px;
+            padding: 16px 20px;
+            color: white;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        .btn-gold {
+            width: 100%;
+            background: linear-gradient(95deg, #ffd700, #ff8c00);
+            border: none;
+            border-radius: 40px;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+            cursor: pointer;
+        }
+        .forgot-link {
+            text-align: right;
+            margin-top: -5px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            color: #aaa;
+        }
+        /* Main App */
+        #appContainer {
+            display: none;
+            padding: 15px;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
+            border-radius: 30px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .balance {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        .match-card {
+            background: #0f0f1a;
+            border-radius: 25px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #2a2a3a;
+        }
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .match-teams {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .match-league {
+            font-size: 12px;
+            color: #ffd700;
+        }
+        .markets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .market-group {
+            background: #1a1a2e;
+            border-radius: 20px;
+            padding: 12px;
+        }
+        .market-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #2a2a3a;
+        }
+        .odds-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .odds-btn {
+            background: #2a2a3a;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.1s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 65px;
+        }
+        .odds-label {
+            font-size: 11px;
+            color: #aaa;
+        }
+        .odds-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        .odds-btn:active {
+            transform: scale(0.96);
+        }
+        .bet-slip {
+            background: #0f0f1a;
+            border-radius: 25px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-top: 2px solid #ffd700;
+            position: sticky;
+            top: 10px;
+        }
+        .bet-slip-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #ffd700;
+        }
+        .slip-item {
+            background: #1e1e2e;
+            border-radius: 20px;
+            padding: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .remove-bet {
+            background: #e63946;
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .bet-total {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding-top: 10px;
+            border-top: 1px solid #2a2a3a;
+        }
+        .place-bet-btn {
+            width: 100%;
+            background: linear-gradient(95deg, #ffd700, #ff8c00);
+            border: none;
+            padding: 14px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #000;
+            cursor: pointer;
+        }
+        .history-section {
+            background: #0f0f1a;
+            border-radius: 25px;
+            padding: 15px;
+        }
+        .history-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #ffd700;
+        }
+        .history-item {
+            background: #1e1e2e;
+            border-radius: 15px;
+            padding: 10px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .win { color: #2ecc71; }
+        .lose { color: #e63946; }
+        .pending { color: #ffaa33; }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #0f0f1a;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0 22px;
+            border-top: 1px solid #2a2a3a;
+            z-index: 100;
+        }
+        .nav-item {
+            text-align: center;
+            color: #8a8a9a;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .nav-item i {
+            font-size: 22px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .nav-item.active {
+            color: #ffd700;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-card {
+            background: #1a1a2e;
+            padding: 30px;
+            border-radius: 40px;
+            width: 90%;
+            max-width: 360px;
+            text-align: center;
+            border: 1px solid #ffd700;
+        }
+        .modal-card input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 30px;
+            border: none;
+            background: #0f0f1a;
+            color: white;
+        }
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #030305;
+            z-index: 5000;
+            overflow-y: auto;
+            display: none;
+            padding: 20px;
+        }
+        .admin-card {
+            background: #14141c;
+            border-radius: 25px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .list-scroll {
+            max-height: 220px;
+            overflow-y: auto;
+            background: #0f0f17;
+            border-radius: 20px;
+            padding: 10px;
+        }
+        .list-item {
+            padding: 12px;
+            border-bottom: 1px solid #2a2a3a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Authentication Screen -->
+<div id="authScreen" class="auth-container">
+    <div class="auth-card">
+        <div class="brand">⚽ WINZA SPORTS</div>
+        <div class="tab-buttons">
+            <button id="loginTabBtn" class="tab-btn active" onclick="switchAuth('login')">🔐 ግባ</button>
+            <button id="regTabBtn" class="tab-btn" onclick="switchAuth('register')">📝 ተመዝገብ</button>
+        </div>
+        <div id="loginPanel">
+            <input type="text" id="loginUsername" class="input-field" placeholder="የተጠቃሚ ስም">
+            <input type="password" id="loginPass" class="input-field" placeholder="ፓስወርድ">
+            <div class="forgot-link" onclick="showForgotPassword()">ረሳሁት? (Forgot Password)</div>
+            <button class="btn-gold" onclick="handleLogin()">ወደ ጨዋታ ግባ</button>
+        </div>
+        <div id="regPanel" style="display:none;">
+            <div style="background:#2ecc7133; border:1px solid #2ecc71; border-radius:30px; padding:12px; text-align:center; margin-bottom:20px;">🎁 አዲስ ምዝገባ 100 ብር ነጻ ቦነስ!</div>
+            <input type="text" id="regUsername" class="input-field" placeholder="የተጠቃሚ ስም">
+            <input type="password" id="regPass" class="input-field" placeholder="ፓስወርድ (ከ4 ፊደል)">
+            <button class="btn-gold" onclick="handleRegister()">ተመዝገብ & ቦነስ አግኝ</button>
+        </div>
+        <div id="authError" style="color:#ff6b6b; text-align:center; margin-top:15px;"></div>
+    </div>
+</div>
+
+<!-- Main App -->
+<div id="appContainer">
+    <div class="header">
+        <div>⚽ WINZA SPORTS</div>
+        <div class="balance">💰 <span id="balanceAmount">0.00</span> ETB</div>
+    </div>
+
+    <!-- Matches with 900+ style markets -->
+    <div id="matchesContainer"></div>
+
+    <!-- Bet Slip -->
+    <div class="bet-slip" id="betSlip">
+        <div class="bet-slip-title">📋 የውርርድ ማስቀመጫ (Bet Slip)</div>
+        <div id="slipItems"></div>
+        <div class="bet-total" id="betTotal">
+            <span>ጠቅላላ ውርርድ:</span>
+            <span id="totalStake">0.00</span>
+            <span>ETB</span>
+        </div>
+        <button class="place-bet-btn" id="placeBetBtn">🎲 ውርርድ አስገባ</button>
+    </div>
+
+    <!-- History Section -->
+    <div class="history-section" id="historySection">
+        <div class="history-title">📜 የውርርድ ታሪክ</div>
+        <div id="historyList"></div>
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active" id="navMatches"><i class="fas fa-futbol"></i><span>ግጥሚያዎች</span></div>
+        <div class="nav-item" id="navHistory"><i class="fas fa-history"></i><span>ታሪክ</span></div>
+        <div class="nav-item" onclick="openDeposit()"><i class="fas fa-coins"></i><span>ብር ሙላ</span></div>
+        <div class="nav-item" onclick="openWithdraw()"><i class="fas fa-hand-holding-usd"></i><span>ገንዘብ አውጣ</span></div>
+    </div>
+</div>
+
+<!-- Deposit/Withdraw Modals (same) -->
+<div id="depositModal" class="modal"><div class="modal-card"><h2 style="color:#ffd700;">📱 ብር ሙላ</h2><p>በቴሌብር ወደ 0998012433 ይላኩ</p><div style="background:#000; padding:15px; border-radius:30px; margin:15px 0;"><h3>0998012433</h3><small>FUAD</small></div><input type="text" id="depositName" placeholder="የላኪ ስም"><input type="number" id="depositAmount" placeholder="መጠን"><button onclick="submitDeposit()" style="background:#ffd700; border:none; padding:12px; border-radius:30px;">ጥያቄ ላክ</button><button onclick="closeDeposit()" style="background:#333; margin-top:10px;">ዝጋ</button></div></div>
+<div id="withdrawModal" class="modal"><div class="modal-card"><h2 style="color:#ffd700;">💸 ገንዘብ አውጣ</h2><input type="number" id="withdrawAmount" placeholder="መጠን (ከ100)"><input type="text" id="withdrawAccount" placeholder="ቴሌብር ቁጥር"><button onclick="submitWithdraw()" style="background:#e63946; border:none; padding:12px; border-radius:30px;">ጥያቄ ላክ</button><button onclick="closeWithdraw()" style="background:#333; margin-top:10px;">ዝጋ</button></div></div>
+
+<!-- Admin Panel (double tap anywhere) -->
+<div id="adminPanel" class="admin-panel">
+    <div style="display:flex; justify-content:space-between;">
+        <h2 style="color:#ffd700;">👑 ADMIN</h2>
+        <button onclick="closeAdmin()" style="background:#e63946; padding:10px 20px; border-radius:30px;">ዝጋ</button>
+    </div>
+    <div class="admin-card">
+        <h3>⚡ ፈጣን ሪቻርጅ</h3>
+        <input type="text" id="adminTarget" placeholder="የተጫዋች ስም" style="width:100%; padding:12px; margin:10px 0; border-radius:20px;">
+        <input type="number" id="adminAmt" placeholder="ብር" style="width:100%; padding:12px; margin:10px 0; border-radius:20px;">
+        <button onclick="adminRecharge()" style="background:#ffd700; border:none; padding:12px; border-radius:30px;">ክሬዲት ሙላ (+) </button>
+        <button onclick="adminDeduct()" style="background:#e63946; border:none; padding:12px; border-radius:30px; margin-top:8px;">ከባላንስ ቀንስ (-)</button>
+    </div>
+    <div class="admin-card">
+        <h3>📋 የዲፖዚት ጥያቄዎች</h3>
+        <div id="adminDepositsList" class="list-scroll"></div>
+    </div>
+    <div class="admin-card">
+        <h3>📋 የወጪ ጥያቄዎች</h3>
+        <div id="adminWithdrawsList" class="list-scroll"></div>
+    </div>
+    <div class="admin-card">
+        <h3>👥 ሁሉም ተጫዋቾች</h3>
+        <div id="adminUsersList" class="list-scroll"></div>
+    </div>
+</div>
+
+<script>
+    // ---------- DATA ----------
+    let currentUser = null;
+    let slip = []; // { matchId, marketName, selection, odds, stake }
+    let allBets = [];
+
+    // Sample match data with many markets (mimicking 1xBet style)
+    const matches = [
+        {
+            id: 1,
+            league: "Premier League",
+            home: "Arsenal",
+            away: "Chelsea",
+            markets: {
+                "1X2": [
+                    { label: "1", name: "Arsenal", odds: 2.10 },
+                    { label: "X", name: "Draw", odds: 3.40 },
+                    { label: "2", name: "Chelsea", odds: 3.20 }
+                ],
+                "Double Chance": [
+                    { label: "1X", name: "Arsenal or Draw", odds: 1.30 },
+                    { label: "12", name: "Arsenal or Chelsea", odds: 1.25 },
+                    { label: "X2", name: "Draw or Chelsea", odds: 1.65 }
+                ],
+                "Over/Under 2.5": [
+                    { label: "Over 2.5", odds: 1.95 },
+                    { label: "Under 2.5", odds: 1.85 }
+                ],
+                "Both Teams to Score": [
+                    { label: "Yes", odds: 1.80 },
+                    { label: "No", odds: 1.95 }
+                ],
+                "Correct Score": [
+                    { label: "1-0", odds: 8.50 }, { label: "2-0", odds: 12.00 }, { label: "2-1", odds: 9.00 },
+                    { label: "0-0", odds: 10.00 }, { label: "1-1", odds: 6.50 }, { label: "0-1", odds: 9.00 }
+                ],
+                "Handicap (-1)": [
+                    { label: "Arsenal -1", odds: 2.90 },
+                    { label: "Chelsea +1", odds: 1.40 },
+                    { label: "Arsenal +1", odds: 1.20 },
+                    { label: "Chelsea -1", odds: 4.50 }
+                ],
+                "Half Time / Full Time": [
+                    { label: "Arsenal/Arsenal", odds: 3.20 },
+                    { label: "Draw/Arsenal", odds: 4.50 },
+                    { label: "Chelsea/Chelsea", odds: 5.00 },
+                    { label: "Draw/Chelsea", odds: 5.50 },
+                    { label: "Arsenal/Draw", odds: 15.00 },
+                    { label: "Chelsea/Draw", odds: 15.00 }
+                ],
+                "First Goalscorer": [
+                    { label: "Saka", odds: 6.50 }, { label: "Havertz", odds: 7.00 }, { label: "Jesus", odds: 6.00 },
+                    { label: "Palmer", odds: 7.50 }, { label: "No Goal", odds: 10.00 }
+                ],
+                "Anytime Goalscorer": [
+                    { label: "Saka", odds: 2.80 }, { label: "Havertz", odds: 3.00 }, { label: "Jesus", odds: 2.60 },
+                    { label: "Palmer", odds: 3.20 }
+                ],
+                "Total Goals": [
+                    { label: "0 Goals", odds: 12.00 }, { label: "1 Goal", odds: 5.50 }, { label: "2 Goals", odds: 3.80 },
+                    { label: "3 Goals", odds: 4.20 }, { label: "4+ Goals", odds: 4.50 }
+                ],
+                "Goal Range": [
+                    { label: "0-1", odds: 3.50 }, { label: "2-3", odds: 2.10 }, { label: "4-6", odds: 3.80 }
+                ],
+                "Odd/Even": [
+                    { label: "Odd", odds: 1.90 }, { label: "Even", odds: 1.90 }
+                ]
+            }
+        }
+    ];
+
+    // Helper functions
+    function maskName(name) {
+        if (name.length <= 4) return name;
+        return name.substring(0,2) + "***" + name.substring(name.length-2);
+    }
+
+    function saveUserData() {
+        let users = JSON.parse(localStorage.getItem('sports_users') || '{}');
+        if (currentUser) {
+            users[currentUser.username] = {
+                password: currentUser.password,
+                balance: currentUser.balance,
+                bets: currentUser.bets || []
+            };
+            localStorage.setItem('sports_users', JSON.stringify(users));
+        }
+    }
+
+    function loadUserData(username) {
+        let users = JSON.parse(localStorage.getItem('sports_users') || '{}');
+        let user = users[username];
+        if (user) {
+            currentUser = {
+                username: username,
+                password: user.password,
+                balance: user.balance,
+                bets: user.bets || []
+            };
+            updateBalanceDisplay();
+            renderHistory();
+        }
+    }
+
+    function updateBalanceDisplay() {
+        if (currentUser) {
+            document.getElementById('balanceAmount').innerText = currentUser.balance.toFixed(2);
+        }
+    }
+
+    function addToSlip(matchId, marketName, selection, odds) {
+        let existing = slip.find(b => b.matchId === matchId && b.marketName === marketName && b.selection === selection);
+        if (existing) return;
+        let match = matches.find(m => m.id === matchId);
+        slip.push({
+            matchId,
+            matchName: `${match.home} vs ${match.away}`,
+            marketName,
+            selection,
+            odds,
+            stake: 0
+        });
+        renderSlip();
+    }
+
+    function removeFromSlip(index) {
+        slip.splice(index, 1);
+        renderSlip();
+    }
+
+    function updateStake(index, stake) {
+        if (stake < 1) stake = 1;
+        if (currentUser && stake > currentUser.balance) stake = currentUser.balance;
+        slip[index].stake = parseFloat(stake);
+        renderSlip();
+    }
+
+    function renderSlip() {
+        const container = document.getElementById('slipItems');
+        const totalStakeSpan = document.getElementById('totalStake');
+        if (slip.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding:20px; color:#888;">ምንም ውርርድ አልመረጡም</div>';
+            totalStakeSpan.innerText = '0.00';
+            return;
+        }
+        let totalStake = 0;
+        let html = '';
+        slip.forEach((bet, idx) => {
+            totalStake += bet.stake;
+            html += `
+                <div class="slip-item">
+                    <div style="flex:2">
+                        <div><strong>${bet.matchName}</strong></div>
+                        <div style="font-size:11px;">${bet.marketName}: ${bet.selection} @ ${bet.odds.toFixed(2)}</div>
+                    </div>
+                    <div style="width:80px">
+                        <input type="number" value="${bet.stake}" step="5" min="1" style="width:70px; background:#0f0f1a; border:1px solid #ffd700; border-radius:20px; padding:5px; color:white; text-align:center;" onchange="updateStake(${idx}, this.value)">
+                    </div>
+                    <button class="remove-bet" onclick="removeFromSlip(${idx})">✕</button>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+        totalStakeSpan.innerText = totalStake.toFixed(2);
+    }
+
+    function placeBets() {
+        if (!currentUser) return;
+        if (slip.length === 0) return alert("እባክዎ ውርርድ ይምረጡ!");
+        let totalStake = slip.reduce((sum, b) => sum + b.stake, 0);
+        if (totalStake > currentUser.balance) return alert("በቂ ባላንስ የለዎትም!");
+        
+        currentUser.balance -= totalStake;
+        saveUserData();
+        updateBalanceDisplay();
+        
+        let newBets = [];
+        for (let bet of slip) {
+            // Simulate random result (for demo, will be resolved later)
+            newBets.push({
+                matchId: bet.matchId,
+                matchName: bet.matchName,
+                market: bet.marketName,
+                selection: bet.selection,
+                odds: bet.odds,
+                stake: bet.stake,
+                status: 'pending',
+                winAmount: 0,
+                date: new Date().toISOString()
+            });
+        }
+        currentUser.bets = [...(currentUser.bets || []), ...newBets];
+        saveUserData();
+        
+        slip = [];
+        renderSlip();
+        
+        // Simulate result resolution after 3 seconds
+        setTimeout(() => resolveRandomBets(newBets), 3000);
+        
+        alert(`ውርርድዎ ተስተካክሏል! ውጤቶች በቅርቡ ይታወቃሉ።`);
+        renderHistory();
+    }
+    
+    function resolveRandomBets(newBets) {
+        for (let bet of newBets) {
+            let win = Math.random() < 0.3; // 30% win rate for demo
+            if (win) {
+                let winAmount = bet.stake * bet.odds;
+                bet.status = 'won';
+                bet.winAmount = winAmount;
+                currentUser.balance += winAmount;
+            } else {
+                bet.status = 'lost';
+                bet.winAmount = 0;
+            }
+        }
+        saveUserData();
+        updateBalanceDisplay();
+        renderHistory();
+        let wonBets = newBets.filter(b => b.status === 'won');
+        if (wonBets.length > 0) {
+            let totalWin = wonBets.reduce((s, b) => s + b.winAmount, 0);
+            alert(`🎉 አሸናፊ! ${totalWin.toFixed(2)} ብር አሸንፈዋል! 🎉`);
+        } else {
+            alert(`😞 አልተሳካም! በሚቀጥለው ዕድል ይሞክሩ።`);
+        }
+    }
+
+    function renderHistory() {
+        const container = document.getElementById('historyList');
+        if (!currentUser || !currentUser.bets || currentUser.bets.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding:20px; color:#888;">ምንም ውርርድ የለም</div>';
+            return;
+        }
+        let html = '';
+        [...currentUser.bets].reverse().forEach(bet => {
+            let statusClass = bet.status === 'won' ? 'win' : (bet.status === 'lost' ? 'lose' : 'pending');
+            let statusText = bet.status === 'won' ? 'አሸንፏል' : (bet.status === 'lost' ? 'ተሸንፏል' : 'በመጠባበቅ ላይ');
+            let amountText = bet.status === 'won' ? `+${bet.winAmount.toFixed(2)}` : `-${bet.stake.toFixed(2)}`;
+            html += `
+                <div class="history-item">
+                    <div><strong>${bet.matchName}</strong><br>${bet.market}: ${bet.selection} @ ${bet.odds.toFixed(2)}</div>
+                    <div>${bet.stake.toFixed(2)} ETB</div>
+                    <div class="${statusClass}">${statusText} ${amountText}</div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    function renderMatches() {
+        const container = document.getElementById('matchesContainer');
+        let html = '';
+        matches.forEach(match => {
+            html += `<div class="match-card">
+                <div class="match-header">
+                    <div class="match-teams">${match.home} 🆚 ${match.away}</div>
+                    <div class="match-league">${match.league}</div>
+                </div>`;
+            html += `<div class="markets-grid">`;
+            for (let [marketName, selections] of Object.entries(match.markets)) {
+                html += `<div class="market-group">
+                    <div class="market-title">${marketName}</div>
+                    <div class="odds-buttons">`;
+                selections.forEach(sel => {
+                    let displayLabel = sel.label || sel.name || sel;
+                    let oddsValue = sel.odds !== undefined ? sel.odds : sel;
+                    let selectionText = sel.name || sel.label || sel;
+                    html += `<button class="odds-btn" onclick="addToSlip(${match.id}, '${marketName}', '${selectionText}', ${oddsValue})">
+                        <span class="odds-label">${displayLabel}</span>
+                        <span class="odds-value">${oddsValue.toFixed(2)}</span>
+                    </button>`;
+                });
+                html += `</div></div>`;
+            }
+            html += `</div></div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    // Navigation
+    document.getElementById('navMatches').addEventListener('click', () => {
+        document.getElementById('matchesContainer').style.display = 'block';
+        document.getElementById('betSlip').style.display = 'block';
+        document.getElementById('historySection').style.display = 'block';
+        document.getElementById('navMatches').classList.add('active');
+        document.getElementById('navHistory').classList.remove('active');
+    });
+    document.getElementById('navHistory').addEventListener('click', () => {
+        document.getElementById('matchesContainer').style.display = 'block';
+        document.getElementById('betSlip').style.display = 'block';
+        document.getElementById('historySection').style.display = 'block';
+        document.getElementById('navHistory').classList.add('active');
+        document.getElementById('navMatches').classList.remove('active');
+        renderHistory();
+    });
+
+    // ---------- AUTH ----------
+    window.switchAuth = (mode) => {
+        document.getElementById('loginPanel').style.display = mode === 'login' ? 'block' : 'none';
+        document.getElementById('regPanel').style.display = mode === 'register' ? 'block' : 'none';
+        document.getElementById('loginTabBtn').className = mode === 'login' ? 'tab-btn active' : 'tab-btn';
+        document.getElementById('regTabBtn').className = mode === 'register' ? 'tab-btn active' : 'tab-btn';
+        document.getElementById('authError').innerHTML = '';
+    };
+    window.handleRegister = () => {
+        const username = document.getElementById('regUsername').value.trim();
+        const pass = document.getElementById('regPass').value;
+        if (username.length < 3 || pass.length < 3) {
+            document.getElementById('authError').innerHTML = "የተጠቃሚ ስም እና ፓስወርድ ቢያንስ 3 ፊደል መሆን አለበት!";
+            return;
+        }
+        let users = JSON.parse(localStorage.getItem('sports_users') || '{}');
+        if (users[username]) {
+            document.getElementById('authError').innerHTML = "የተጠቃሚ ስም አስቀድሞ ተመዝግቧል!";
+            return;
+        }
+        users[username] = { password: pass, balance: 100, bets: [] };
+        localStorage.setItem('sports_users', JSON.stringify(users));
+        document.getElementById('authError').innerHTML = "✅ ተመዝግበዋል! 100 ብር ቦነስ! አሁን ይግቡ";
+        switchAuth('login');
+    };
+    window.handleLogin = () => {
+        const username = document.getElementById('loginUsername').value.trim();
+        const pass = document.getElementById('loginPass').value;
+        let users = JSON.parse(localStorage.getItem('sports_users') || '{}');
+        let user = users[username];
+        if (!user) {
+            document.getElementById('authError').innerHTML = "ተጠቃሚ አልተገኘም!";
+            return;
+        }
+        if (user.password !== pass) {
+            document.getElementById('authError').innerHTML = "የይለፍ ቃል ስህተት!";
+            return;
+        }
+        currentUser = { username, password: user.password, balance: user.balance, bets: user.bets || [] };
+        document.getElementById('authScreen').style.display = 'none';
+        document.getElementById('appContainer').style.display = 'block';
+        document.getElementById('balanceAmount').innerText = currentUser.balance.toFixed(2);
+        renderMatches();
+        renderSlip();
+        renderHistory();
+    };
+    window.showForgotPassword = () => {
+        alert("እባክዎ አድሚንን ያነጋግሩ (ለሙከራ አዲስ ይመዝገቡ)");
+    };
+
+    // Deposit/Withdraw
+    window.openDeposit = () => { document.getElementById('depositModal').style.display = 'flex'; };
+    window.closeDeposit = () => { document.getElementById('depositModal').style.display = 'none'; };
+    window.openWithdraw = () => { document.getElementById('withdrawModal').style.display = 'flex'; };
+    window.closeWithdraw = () => { document.getElementById('withdrawModal').style.display = 'none'; };
+    window.submitDeposit = () => {
+        let name = document.getElementById('depositName').value;
+        let amt = parseFloat(document.getElementById('depositAmount').value);
+        if (!name || !amt) return alert("መረጃ ይሙሉ!");
+        currentUser.balance += amt;
+        saveUserData();
+        updateBalanceDisplay();
+        alert("ብር ተሞልቷል!");
+        closeDeposit();
+    };
+    window.submitWithdraw = () => {
+        let amt = parseFloat(document.getElementById('withdrawAmount').value);
+        let acc = document.getElementById('withdrawAccount').value;
+        if (amt < 100) return alert("ዝቅተኛው 100 ብር!");
+        if (!acc) return alert("አካውንት ያስገቡ!");
+        if (currentUser.balance < amt) return alert("ባላንስ አይበቃም!");
+        currentUser.balance -= amt;
+        saveUserData();
+        updateBalanceDisplay();
+        alert("ጥያቄ ተልኳል!");
+        closeWithdraw();
+    };
+
+    // Admin
+    let clickCount = 0;
+    let clickTimer = null;
+    document.body.addEventListener('dblclick', () => {
+        const pwd = prompt("🔐 አድሚን ፓስወርድ:");
+        if (pwd === "fuadiran2129") {
+            document.getElementById('adminPanel').style.display = 'block';
+            loadAdminData();
+        } else if (pwd) alert("የተሳሳተ!");
+    });
+    function loadAdminData() {
+        let users = JSON.parse(localStorage.getItem('sports_users') || '{}');
+        let total = Object.keys(users).length;
+        let totalBal = 0;
+        let html = '';
+        for (let u in users) {
+            totalBal += users[u].balance;
+            html += `<div class="list-item"><span><b>${maskName(u)}</b></span><span>${users[u].balance.toFixed(2)} ETB</span></div>`;
+        }
+        document.getElementById('adminUsersList').innerHTML = html;
+        document.getElementById('adminTotalUsers').innerText = total;
+        document.getElementById('adminTotalBalance').innerText = totalBal.toFixed(2);
+        document.getElementById('adminDepositsList').innerHTML = '<div class="list-item">ምንም ጥያቄ የለም</div>';
+        document.getElementById('adminWithdrawsList').innerHTML = '<div class="list-item">ምንም ጥያቄ የለም</div>';
+    }
+    window.adminRecharge = () => {
+        let target = document.getElementById('adminTarget').value;
+        let amt = parseFloat(document.getElementById('adminAmt').value);
+        if (!target || isNaN(amt)) return;
+        let users = JSON.parse(localStorage.getItem('sports_users') || '{}');
+        if (!users[target]) return alert("አልተገኘም!");
+        users[target].balance += amt;
+        localStorage.setItem('sports_users', JSON.stringify(users));
+        alert(`ለ ${target} ${amt} ብር ተሞልቷል!`);
+        if (currentUser && currentUser.username === target) {
+            currentUser.balance += amt;
+            updateBalanceDisplay();
+        }
+        loadAdminData();
+    };
+    window.adminDeduct = () => {
+        let target = document.getElementById('adminTarget').value;
+        let amt = parseFloat(document.getElementById('adminAmt').value);
+        if (!target || isNaN(amt)) return;
+        let users = JSON.parse(localStorage.getItem('sports_users') || '{}');
+        if (!users[target]) return alert("አልተገኘም!");
+        if (users[target].balance < amt) return alert("በቂ ባላንስ የለም!");
+        users[target].balance -= amt;
+        localStorage.setItem('sports_users', JSON.stringify(users));
+        alert(`ከ ${target} ${amt} ብር ተቀንሷል!`);
+        if (currentUser && currentUser.username === target) {
+            currentUser.balance -= amt;
+            updateBalanceDisplay();
+        }
+        loadAdminData();
+    };
+    window.closeAdmin = () => { document.getElementById('adminPanel').style.display = 'none'; };
+    window.updateStake = updateStake;
+    window.removeFromSlip = removeFromSlip;
+    window.addToSlip = addToSlip;
+    document.getElementById('placeBetBtn').addEventListener('click', placeBets);
+</script>
+</body>
+</html>
+```
